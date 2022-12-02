@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import os.path
 
+from collections import defaultdict
 import pytest
 
 import support
@@ -11,21 +12,33 @@ INPUT_TXT = os.path.join(os.path.dirname(__file__), 'input.txt')
 
 
 def compute(s: str) -> int:
-    n = 0
-    for c in s.strip():
-        if c == '(':
-            n += 1
-        elif c == ')':
-            n -= 1
+    elves = defaultdict(int)
+    i = 0
+    for line in s.splitlines():
+        if line == '':
+            i += 1
         else:
-            raise AssertionError(f'unexpected: {c!r}')
-    return n
-
+            elves[i] += int(line)
+        
+    return max(elves.values())
 
 INPUT_S = '''\
-))(((((
+1000
+2000
+3000
+
+4000
+
+5000
+6000
+
+7000
+8000
+9000
+
+10000
 '''
-EXPECTED = 3
+EXPECTED = 24000
 
 
 @pytest.mark.parametrize(

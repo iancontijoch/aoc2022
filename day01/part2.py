@@ -4,6 +4,7 @@ import argparse
 import os.path
 
 import pytest
+from collections import defaultdict
 
 import support
 
@@ -11,23 +12,33 @@ INPUT_TXT = os.path.join(os.path.dirname(__file__), 'input.txt')
 
 
 def compute(s: str) -> int:
-    n = 0
-    for i, c in enumerate(s.strip(), start=1):
-        if c == '(':
-            n += 1
-        elif c == ')':
-            n -= 1
-            if n == -1:
-                return i
+    elves = defaultdict(int)
+    i = 0
+    for line in s.splitlines():
+        if line == '':
+            i += 1
         else:
-            raise AssertionError(f'unexpected: {c!r}')
-    raise AssertionError('unreachable')
-
+            elves[i] += int(line)
+        
+    return sum(sorted(elves.values(), reverse=True)[:3])
 
 INPUT_S = '''\
-()())
+1000
+2000
+3000
+
+4000
+
+5000
+6000
+
+7000
+8000
+9000
+
+10000
 '''
-EXPECTED = 5
+EXPECTED = 45000
 
 
 @pytest.mark.parametrize(
