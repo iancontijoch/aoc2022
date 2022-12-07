@@ -2,15 +2,16 @@ from __future__ import annotations
 
 import argparse
 import os.path
+from string import ascii_letters
 
 import pytest
-from string import ascii_letters
+
 import support
 
 INPUT_TXT = os.path.join(os.path.dirname(__file__), 'input.txt')
 
 
-def compute(s: str) -> int:
+def compute2(s: str) -> int:
     lines = s.splitlines()
     priorities = 0
     d = dict(zip(ascii_letters, range(1, 53)))
@@ -20,6 +21,23 @@ def compute(s: str) -> int:
         common_elem = list(set(group[0]) & set(group[1]) & set(group[2]))[0]
         priorities += d[common_elem]
     return priorities
+
+
+def compute(s: str) -> int:
+    total = 0
+    items = iter(s.splitlines())
+
+    while True:
+        try:
+            s, = set(next(items)) & set(next(items)) & set(next(items))
+        except StopIteration:
+            break
+        else:
+            if s.islower():
+                total += 1 + (ord(s) - ord('a'))
+            else:
+                total += 27 + (ord(s) - ord('A'))
+    return total
 
 
 INPUT_S = '''\
