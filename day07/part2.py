@@ -66,7 +66,9 @@ class Node():
                 for child in self.children
             )
 
-    def get_dirs(self, lst: list[Node]) -> list[Node]:
+    def get_dirs(self, lst: list[Node] | None = None) -> list[Node]:
+        if lst is None:
+            lst = []
         if self.children:
             lst.append(self)
             for child in self.children:
@@ -124,7 +126,7 @@ def compute(s: str) -> int:
     space_needed = max(0, MIN_UNUSED_DISK_SPACE - free_disk_space)
 
     # get all directories and sizes under a given node
-    dirs = root.get_dirs([])
+    dirs = root.get_dirs()
     eligible_dirs = [dir for dir in dirs if dir.size >= space_needed]
     return sorted(eligible_dirs, key=lambda x: x.size)[0].size
 
