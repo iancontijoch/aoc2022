@@ -57,7 +57,6 @@ def compare(left: list[Any] | int, right: list[Any] | int) -> bool | None:
 def merge(left: list[Any], right: list[Any]) -> list[Any]:
     result = []
     while left and right:
-        # breakpoint()
         if compare(left[0], right[0]):
             result.append(left.pop(0))
         else:

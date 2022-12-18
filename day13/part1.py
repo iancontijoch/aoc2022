@@ -14,7 +14,6 @@ INPUT_TXT = os.path.join(os.path.dirname(__file__), 'input.txt')
 def compare(left: list[Any] | int, right: list[Any] | int) -> bool | None:
     # print(f'Comparing {left} vs {right}')
     if isinstance(left, int) and isinstance(right, int):
-        # breakpoint()
         if left < right:
             return True
         elif left > right:
