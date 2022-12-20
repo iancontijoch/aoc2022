@@ -3,3 +3,4 @@
 /.env
 *internet*.py
 notes.txt
+*.ipynb_checkpoints/
