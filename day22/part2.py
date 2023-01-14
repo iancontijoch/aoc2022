@@ -457,7 +457,6 @@ def compute(s: str) -> int:
                 break
             visited.add(curr_pos[:2])
     # support.print_coords_hash(visited)
-
     return 4 * (curr_pos[0] + 1) + 1000 * (curr_pos[1] + 1) + curr_facing.value
 
 
