@@ -47,12 +47,10 @@ def compute(s: str) -> int:
         dir_proposals.rotate(-1)
         elves_iters = {k: iter(dir_proposals) for k in elves}
         elf_proposals = {}
+        elf_values = set(elves.values())
         for elf, pos in elves.items():
-            no_elves = all(
-                a not in elves.values()
-                for a in support.adjacent_8(*pos)
-            )
-            if no_elves:
+
+            if not elf_values & set(support.adjacent_8(*pos)):
                 continue
             else:
                 while True:
@@ -62,10 +60,7 @@ def compute(s: str) -> int:
                         break
                     else:
                         # propose square if no elves in that direction
-                        if all(
-                            a not in elves.values()
-                            for a in adjacent_3_dir(*pos, p)
-                        ):
+                        if not elf_values & set(adjacent_3_dir(*pos, p)):
                             elf_proposals[elf] = support.Direction4.apply(
                                 p, *pos,
                             )
